@@ -1,0 +1,14 @@
+.tools/
+.artifacts/
+artifacts/
+dist/
+**/bin/
+**/obj/
+.vs/
+*.user
+*.suo
+*.log
+*.zip
+*.pdb
+test-results/
+backups/

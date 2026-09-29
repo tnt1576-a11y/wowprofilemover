@@ -1,0 +1,9 @@
+## Interface: 120100, 120007, 11509, 50504, 20506
+## Title: WoW Profile Mover Bridge
+## Notes: Optional, manually applied settings capture for WoW Profile Mover.
+## Author: WoW Profile Mover contributors
+## Version: 0.1.0
+## SavedVariablesPerCharacter: WowProfileMoverBridgeDB
+Core.lua
+Runtime.lua
+UI.lua

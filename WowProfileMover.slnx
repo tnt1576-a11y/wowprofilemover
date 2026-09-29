@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/WowProfileMover.App/WowProfileMover.App.csproj" />
+    <Project Path="src/WowProfileMover.Core/WowProfileMover.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/WowProfileMover.Tests/WowProfileMover.Tests.csproj" />
+  </Folder>
+</Solution>

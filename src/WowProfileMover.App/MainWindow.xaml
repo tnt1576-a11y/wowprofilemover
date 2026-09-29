@@ -1,0 +1,220 @@
+<Window x:Class="WowProfileMover.App.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="WoW Profile Mover" Width="1220" Height="920" MinWidth="1020" MinHeight="720" WindowStartupLocation="CenterScreen" Style="{StaticResource {x:Type Window}}">
+  <Grid Background="{StaticResource Bg}">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="212" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+    <Border Background="#111724" BorderBrush="#242C3D" BorderThickness="0,0,1,0" Padding="20,28">
+      <DockPanel LastChildFill="True">
+        <StackPanel DockPanel.Dock="Top">
+          <Border Background="#353055" CornerRadius="12" Width="46" Height="46" HorizontalAlignment="Left">
+            <TextBlock Text="⇄" FontSize="32" Foreground="{StaticResource Accent}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+          </Border>
+          <TextBlock Text="WoW Profile" FontSize="22" FontWeight="SemiBold" Margin="0,16,0,0" />
+          <TextBlock Text="Mover" FontSize="22" FontWeight="SemiBold" />
+          <TextBlock Text="YOUR SETUP, EVERYWHERE" FontSize="9" Foreground="{StaticResource Muted}" Margin="0,9,0,32" />
+          <Button x:Name="TransferNav" Content="⇄    Transfer settings" Style="{StaticResource NavButton}" Click="TransferNav_Click" Background="#29263F" />
+          <Button x:Name="BackupNav" Content="↶    Backups &amp; restore" Style="{StaticResource NavButton}" Click="BackupNav_Click" />
+          <Button x:Name="BridgeNav" Content="◇    In-game settings" Style="{StaticResource NavButton}" Click="BridgeNav_Click" />
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Bottom">
+          <Border BorderBrush="#2B354A" BorderThickness="1" CornerRadius="8" Padding="12">
+            <StackPanel>
+              <TextBlock Text="●  Local and private" FontSize="12" Foreground="#8ADBC0" />
+              <TextBlock Text="Your settings stay on this PC." FontSize="11" Margin="0,7,0,0" Style="{StaticResource MutedText}" />
+            </StackPanel>
+          </Border>
+          <TextBlock Text="v0.1.0 · Preview" FontSize="11" Foreground="{StaticResource Muted}" Margin="0,18,0,0" />
+        </StackPanel>
+        <Grid />
+      </DockPanel>
+    </Border>
+    <Grid Grid.Column="1" Margin="32,24,32,18">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+      <ScrollViewer x:Name="MainScroll" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="0,0,12,0">
+        <StackPanel>
+          <StackPanel x:Name="TransferPage">
+            <DockPanel>
+              <Border DockPanel.Dock="Right" Background="#1F2D30" CornerRadius="12" Padding="10,5" VerticalAlignment="Top">
+                <TextBlock Text="RETAIL + CLASSIC" FontSize="10" Foreground="#9DDCC4" />
+              </Border>
+              <TextBlock Text="Bring your setup with you." FontSize="29" FontWeight="SemiBold" />
+            </DockPanel>
+            <TextBlock Text="Move settings between your accounts or characters, with a backup before every change." Style="{StaticResource MutedText}" Margin="0,9,0,22" />
+            <Border Style="{StaticResource Card}">
+              <StackPanel>
+                <TextBlock Text="01   FIND YOUR GAME" FontSize="11" FontWeight="Bold" Foreground="{StaticResource Accent}" Margin="0,0,0,12" />
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                  </Grid.ColumnDefinitions>
+                  <TextBox x:Name="InstallPath" ToolTip="Choose the World of Warcraft folder or an individual client folder." VerticalContentAlignment="Center" />
+                  <Button Grid.Column="1" Content="Browse" Click="Browse_Click" Margin="8,0,0,0" />
+                  <Button Grid.Column="2" Content="Scan" Click="Scan_Click" Margin="8,0,0,0" />
+                </Grid>
+                <Grid Margin="0,12,0,0">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                  </Grid.ColumnDefinitions>
+                  <ComboBox x:Name="ClientPicker" DisplayMemberPath="DisplayName" SelectionChanged="ClientPicker_SelectionChanged" />
+                  <TextBlock Grid.Column="1" x:Name="ScanSummary" Text="Choose an installation to begin" VerticalAlignment="Center" Foreground="{StaticResource Muted}" FontSize="12" Margin="16,0,0,0" />
+                </Grid>
+              </StackPanel>
+            </Border>
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,15">
+              <RadioButton x:Name="AccountMode" Content="Account → Account" IsChecked="True" Checked="Mode_Checked" />
+              <RadioButton x:Name="CharacterMode" Content="Character → Character" Checked="Mode_Checked" />
+            </StackPanel>
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="34" />
+                <ColumnDefinition Width="*" />
+              </Grid.ColumnDefinitions>
+              <Border Style="{StaticResource Card}">
+                <StackPanel>
+                  <TextBlock Text="COPY FROM" FontSize="11" FontWeight="Bold" Foreground="{StaticResource Accent}" />
+                  <TextBlock Text="Source account" Margin="0,12,0,7" FontSize="12" Foreground="{StaticResource Muted}" />
+                  <ComboBox x:Name="SourceAccount" DisplayMemberPath="Id" SelectionChanged="SourceAccount_SelectionChanged" />
+                  <ComboBox x:Name="SourceCharacter" DisplayMemberPath="Label" Margin="0,10,0,0" Visibility="Collapsed" SelectionChanged="SourceCharacter_SelectionChanged" />
+                  <TextBlock x:Name="SourceDetails" Style="{StaticResource MutedText}" FontSize="11" Margin="0,10,0,0" Text="Accounts appear after you log in to WoW." />
+                </StackPanel>
+              </Border>
+              <TextBlock Grid.Column="1" Text="→" FontSize="24" Foreground="{StaticResource Muted}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+              <Border Grid.Column="2" Style="{StaticResource Card}">
+                <StackPanel>
+                  <TextBlock Text="COPY TO" FontSize="11" FontWeight="Bold" Foreground="#88D6C4" />
+                  <TextBlock Text="Destination account" Margin="0,12,0,7" FontSize="12" Foreground="{StaticResource Muted}" />
+                  <ComboBox x:Name="DestinationAccount" DisplayMemberPath="Id" SelectionChanged="DestinationAccount_SelectionChanged" />
+                  <ComboBox x:Name="DestinationCharacter" DisplayMemberPath="Label" Margin="0,10,0,0" Visibility="Collapsed" SelectionChanged="DestinationCharacter_SelectionChanged" />
+                  <TextBlock x:Name="DestinationDetails" Style="{StaticResource MutedText}" FontSize="11" Margin="0,10,0,0" Text="Enter the destination character once, then exit WoW." />
+                </StackPanel>
+              </Border>
+            </Grid>
+            <Border Style="{StaticResource Card}" Margin="0,18,0,0">
+              <StackPanel>
+                <TextBlock Text="02   CHOOSE WHAT TO BRING" FontSize="11" FontWeight="Bold" Foreground="{StaticResource Accent}" Margin="0,0,0,10" />
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                  </Grid.ColumnDefinitions>
+                  <StackPanel>
+                    <CheckBox x:Name="AddonData" Content="Addon saved data" IsChecked="True" Checked="CategoryChanged" Unchecked="CategoryChanged" />
+                    <CheckBox x:Name="AddonEnablement" Content="Enabled / disabled addons" />
+                    <CheckBox x:Name="LocalLayout" Content="Local window positions" />
+                  </StackPanel>
+                  <StackPanel Grid.Column="1">
+                    <CheckBox x:Name="CompanionSnapshot" Content="Captured in-game settings" ToolTip="Character mode only. Capture with /wpm export first; import manually on the destination." IsEnabled="False" />
+                    <CheckBox x:Name="IncludeAccountData" Content="Also include account addon data" Visibility="Collapsed" Checked="CategoryChanged" Unchecked="CategoryChanged" />
+                    <TextBlock Text="Keybinds and macros: use the In-game settings tab for the guided transfer." Style="{StaticResource MutedText}" FontSize="12" Margin="0,8,0,0" />
+                  </StackPanel>
+                </Grid>
+                <Expander Header="Choose individual addons" x:Name="AddonExpander">
+                  <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,3">
+                      <Button Content="Select all" Click="SelectAllAddons_Click" Padding="10,5" FontSize="11" />
+                      <Button Content="Clear" Click="ClearAddons_Click" Padding="10,5" FontSize="11" Margin="8,0,0,0" />
+                      <TextBlock x:Name="AddonCount" FontSize="12" Foreground="{StaticResource Muted}" Margin="12,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                    <ScrollViewer MaxHeight="180" VerticalScrollBarVisibility="Auto">
+                      <WrapPanel x:Name="AddonChoices" />
+                    </ScrollViewer>
+                  </StackPanel>
+                </Expander>
+                <Border x:Name="AccountNotice" Background="#292536" CornerRadius="7" Padding="12" Margin="0,14,0,0">
+                  <CheckBox x:Name="AccountAcknowledge" Margin="0">
+                    <TextBlock Text="I understand that replacing account addon data can affect all characters on the destination account." TextWrapping="Wrap" MaxWidth="690" FontSize="12" Foreground="#D3C2E6" />
+                  </CheckBox>
+                </Border>
+                <Expander Header="Advanced: copy game cache files" x:Name="AdvancedExpander">
+                  <StackPanel Margin="0,10,0,0">
+                    <TextBlock Text="WoW may restore these settings from its servers. File copying does not verify in-game results. Prefer the companion for bindings, macros, options, and layouts." Style="{StaticResource MutedText}" FontSize="12" />
+                    <WrapPanel>
+                      <CheckBox x:Name="RawBindings" Content="Keybind caches" Margin="0,10,20,0" />
+                      <CheckBox x:Name="RawMacros" Content="Macro caches" Margin="0,10,20,0" />
+                      <CheckBox x:Name="RawOptions" Content="Game option caches" Margin="0,10,20,0" />
+                      <CheckBox x:Name="RawEditMode" Content="Edit Mode caches" Margin="0,10,20,0" />
+                      <CheckBox x:Name="ChatLayout" Content="Chat layout caches" Margin="0,10,20,0" />
+                    </WrapPanel>
+                  </StackPanel>
+                </Expander>
+              </StackPanel>
+            </Border>
+          </StackPanel>
+          <StackPanel x:Name="BackupPage" Visibility="Collapsed">
+            <TextBlock Text="A way back, every time." FontSize="29" FontWeight="SemiBold" />
+            <TextBlock Text="Every transfer keeps a verified copy of the files it changes. Restore only those files." Style="{StaticResource MutedText}" Margin="0,9,0,22" />
+            <Border Style="{StaticResource Card}">
+              <StackPanel>
+                <TextBlock Text="BACKUP LIBRARY" FontSize="11" Foreground="{StaticResource Accent}" FontWeight="Bold" />
+                <TextBlock x:Name="BackupPathText" Style="{StaticResource MutedText}" Margin="0,10,0,14" FontSize="12" />
+                <StackPanel Orientation="Horizontal">
+                  <Button Content="Open folder" Click="OpenBackupFolder_Click" />
+                  <Button Content="Refresh" Click="RefreshBackups_Click" Margin="8,0,0,0" />
+                  <Button Content="Choose backup location" Click="ChangeBackupFolder_Click" Margin="8,0,0,0" />
+                </StackPanel>
+              </StackPanel>
+            </Border>
+            <DataGrid x:Name="BackupGrid" Margin="0,18,0,0" Height="300" SelectionMode="Single">
+              <DataGrid.Columns>
+                <DataGridTextColumn Header="Created" Binding="{Binding DateLabel}" Width="170" />
+                <DataGridTextColumn Header="Destination" Binding="{Binding Destination}" Width="*" />
+                <DataGridTextColumn Header="Operation" Binding="{Binding Id}" Width="140" />
+                <DataGridTextColumn Header="State" Binding="{Binding State}" Width="160" />
+              </DataGrid.Columns>
+            </DataGrid>
+            <TextBlock x:Name="BackupEmpty" Text="No backups yet. Your first transfer will appear here." Style="{StaticResource MutedText}" Margin="0,15,0,0" />
+            <Button Content="Review restore  ↶" Style="{StaticResource PrimaryButton}" HorizontalAlignment="Right" Margin="0,18,0,0" Click="Restore_Click" />
+            <TextBlock Text="If you have played since the transfer, restore first saves your current files as another backup. File restore covers local files; use the companion's Restore action for settings already applied in game." Style="{StaticResource MutedText}" Margin="0,18,0,0" />
+          </StackPanel>
+          <StackPanel x:Name="BridgePage" Visibility="Collapsed">
+            <TextBlock Text="Finish the move in game." FontSize="29" FontWeight="SemiBold" />
+            <TextBlock Text="The optional companion captures and applies supported settings through WoW's own APIs." Style="{StaticResource MutedText}" Margin="0,9,0,22" />
+            <Border Style="{StaticResource Card}">
+              <StackPanel>
+                <TextBlock Text="WOW PROFILE MOVER BRIDGE" FontSize="11" FontWeight="Bold" Foreground="{StaticResource Accent}" />
+                <TextBlock Text="Keybinds · Macros · Gameplay options · Edit Mode*" FontSize="18" FontWeight="SemiBold" Margin="0,14,0,10" />
+                <TextBlock Text="*Availability depends on your client. The addon reports unsupported features. Action-bar spell placement is not included in this preview release." Style="{StaticResource MutedText}" FontSize="12" />
+                <StackPanel Orientation="Horizontal" Margin="0,18,0,0">
+                  <Button Content="Install into selected client" Style="{StaticResource PrimaryButton}" Click="InstallBridge_Click" />
+                  <Button Content="Open companion folder" Margin="8,0,0,0" Click="OpenBridgeFolder_Click" />
+                </StackPanel>
+              </StackPanel>
+            </Border>
+            <Border Style="{StaticResource Card}" Margin="0,18,0,0">
+              <StackPanel>
+                <TextBlock Text="1   Capture on the source character" FontSize="17" FontWeight="SemiBold" />
+                <TextBlock Text="Log in with the companion enabled. Type /wpm export, then fully exit WoW so the capture is saved to disk." Style="{StaticResource MutedText}" Margin="0,7,0,22" />
+                <TextBlock Text="2   Move the capture with this app" FontSize="17" FontWeight="SemiBold" />
+                <TextBlock Text="Choose Character → Character and select Captured in-game settings. Review the transfer, then back up and copy." Style="{StaticResource MutedText}" Margin="0,7,0,22" />
+                <TextBlock Text="3   Apply on the destination character" FontSize="17" FontWeight="SemiBold" />
+                <TextBlock Text="Log in and type /wpm import. Choose supported categories and review the scope before applying. Nothing is applied automatically on login." Style="{StaticResource MutedText}" Margin="0,7,0,22" />
+                <TextBlock Text="4   Check after a fresh login" FontSize="17" FontWeight="SemiBold" />
+                <TextBlock Text="Verify your settings, exit normally, and log in again. Addon profiles may still need to be selected in that addon's profile menu." Style="{StaticResource MutedText}" Margin="0,7,0,0" />
+                <TextBlock Text="Companion Restore preserves later edits. Added macros remain for manual removal; action bars may reference them." Style="{StaticResource MutedText}" FontSize="12" Margin="0,16,0,0" />
+              </StackPanel>
+            </Border>
+          </StackPanel>
+        </StackPanel>
+      </ScrollViewer>
+      <DockPanel Grid.Row="1" x:Name="TransferActions" Margin="0,18,12,0">
+        <Button x:Name="PreviewButton" DockPanel.Dock="Right" Content="Review transfer  →" Style="{StaticResource PrimaryButton}" Click="Preview_Click" />
+        <TextBlock Text="WoW must be fully closed when copying.&#xA;Your source files are never changed." Style="{StaticResource MutedText}" FontSize="12" VerticalAlignment="Center" />
+      </DockPanel>
+      <Border Grid.Row="2" BorderBrush="{StaticResource Line}" BorderThickness="0,1,0,0" Margin="0,14,0,0" Padding="0,12,0,0">
+        <StackPanel>
+          <ProgressBar x:Name="BusyProgress" Height="3" IsIndeterminate="True" Visibility="Collapsed" Margin="0,0,0,10" />
+          <TextBlock x:Name="StatusText" Text="Ready. Choose your World of Warcraft folder to start." Foreground="{StaticResource Muted}" TextWrapping="Wrap" FontSize="12" />
+        </StackPanel>
+      </Border>
+    </Grid>
+  </Grid>
+</Window>

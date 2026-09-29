@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>WoWProfileMover</AssemblyName>
+    <RootNamespace>WowProfileMover.App</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets/app.ico</ApplicationIcon>
+    <Product>WoW Profile Mover</Product>
+    <Description>Back up and transfer World of Warcraft settings.</Description>
+    <PublishTrimmed>false</PublishTrimmed>
+  </PropertyGroup>
+  <ItemGroup>
+    <Resource Include="Assets/app.ico" />
+    <ProjectReference Include="../WowProfileMover.Core/WowProfileMover.Core.csproj" />
+    <Content Include="../../companion/WowProfileMoverBridge/**/*" Link="Companion/WowProfileMoverBridge/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="../../companion/README.md" Link="Companion/README.md" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>
